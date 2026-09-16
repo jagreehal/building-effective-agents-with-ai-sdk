@@ -1,0 +1,66 @@
+{
+  "testCases": [
+    {
+      "id": "68c188a5b096",
+      "story": {
+        "scenario": "gates bookFlight with human approval",
+        "steps": [
+          {
+            "id": "step-0",
+            "keyword": "Then",
+            "text": "dangerous tool waits for approval over budget",
+            "docs": [],
+            "assertions": 0
+          }
+        ],
+        "suitePath": [
+          "16 - Tool Approval"
+        ],
+        "tags": [
+          "loop",
+          "tool-approval",
+          "real-output"
+        ],
+        "sourceOrder": 0
+      },
+      "sourceFile": "tests/16-tool-approval.story.test.ts",
+      "sourceLine": 1,
+      "status": "passed",
+      "rawStatus": "pass",
+      "durationMs": 0,
+      "attachments": [],
+      "stepResults": [
+        {
+          "index": 0,
+          "stepId": "step-0",
+          "status": "passed",
+          "durationMs": 0
+        }
+      ],
+      "titlePath": [
+        "16 - Tool Approval"
+      ],
+      "retry": 0,
+      "retries": 0,
+      "tags": [
+        "loop",
+        "real-output",
+        "tool-approval"
+      ],
+      "lastRunAtMs": 1789590848724,
+      "lastRunGitSha": "ecc4ea687070f3ea3eea9cdf31b38815dcfce24a"
+    }
+  ],
+  "startedAtMs": 1789590845216,
+  "finishedAtMs": 1789590848724,
+  "durationMs": 3508,
+  "projectRoot": "/Users/jreehal/dev/ai/building-effective-agents-with-ai-sdk",
+  "runId": "62387f7bdcfdc9c2",
+  "packageVersion": "1.0.0",
+  "gitSha": "ecc4ea687070f3ea3eea9cdf31b38815dcfce24a",
+  "runScope": "full",
+  "coveredSourceFiles": [
+    "tests/06-orchestrator-agent.story.test.ts",
+    "tests/16-tool-approval.story.test.ts"
+  ]
+}

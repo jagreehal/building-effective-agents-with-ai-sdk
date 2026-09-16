@@ -4,3 +4,10 @@ dist/
 .env.*
 !.env.example
 *.log
+___temp
+skills-lock.json
+.agents
+.claude
+.cursor
+.DS_Store
+.pnpm-store

@@ -12,6 +12,17 @@ This repo demonstrates **two approaches** from the AI SDK docs:
 | ------------------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------- |
 | **Workflows** (explicit control flow) | Deterministic multi-step pipelines, structured orchestration | [Workflows](https://ai-sdk.dev/docs/agents/workflows)             |
 | **ToolLoopAgent** (agent class)       | Autonomous agents that use tools in a loop                   | [Building Agents](https://ai-sdk.dev/docs/agents/building-agents) |
+| **Loops** (verify + iterate)          | Goal-driven iteration with gates, state, and stop conditions | [src/LOOPS.md](src/LOOPS.md)                                      |
+
+## Loops track
+
+Examples **13–22** in [`src/04-loops/`](src/04-loops/) map loop engineering concepts (hard verify, soft rubric, state, human gates, heartbeat) to AI SDK v7. Example **22** adds [`ai-sdk-guardrails`](https://www.npmjs.com/package/ai-sdk-guardrails) as a library alternative to the DIY guardrails in **17–18**. Start with the guide: [`src/LOOPS.md`](src/LOOPS.md).
+
+```bash
+pnpm 13   # Hard verify loop (tests as gate)
+pnpm 20   # Scheduled heartbeat (LOOP_MAX_RUNS=1 for a quick tick)
+pnpm 22   # ai-sdk-guardrails withGuardrails (bonus)
+```
 
 ## Scripts
 
@@ -394,10 +405,10 @@ class MinStack:
 
 ## 6. ToolLoopAgent (Recommended)
 
-The `ToolLoopAgent` class is the **recommended v6/v7 approach** for building agents. It handles the loop, context management, and stopping conditions automatically. You define tools, and the agent calls them in a loop until a stop condition is met.
+The `ToolLoopAgent` class is the **recommended v7 approach** for building agents. It handles the loop, context management, and stopping conditions automatically. You define tools, and the agent calls them in a loop until a stop condition is met.
 
 ```ts
-import { ToolLoopAgent, tool, stepCountIs, hasToolCall } from 'ai';
+import { ToolLoopAgent, tool, isStepCount } from 'ai';
 import { ollama } from 'ai-sdk-ollama';
 
 const agent = new ToolLoopAgent({
@@ -410,7 +421,7 @@ const agent = new ToolLoopAgent({
       execute: async ({ query }) => ({ results: `Results for ${query}` }),
     }),
   },
-  stopWhen: [stepCountIs(10), hasToolCall('done')],
+  stopWhen: isStepCount(10), // default is 20
 });
 
 const result = await agent.generate({ prompt: '...' });
@@ -444,18 +455,24 @@ const orchestrator = new ToolLoopAgent({
     write: tool({
       description: 'Generate content',
       inputSchema: z.object({ spec: z.string() }),
-      execute: async ({ spec }) => {
-        const r = await writerAgent.generate({ prompt: spec });
+      // pass abortSignal so cancelling the orchestrator cancels the subagent
+      execute: async ({ spec }, { abortSignal }) => {
+        const r = await writerAgent.generate({ prompt: spec, abortSignal });
         return r.text;
       },
     }),
+    // no execute: calling a tool without one ends the loop
     done: tool({
       description: 'Final result',
       inputSchema: z.object({ summary: z.string() }),
     }),
   },
-  stopWhen: [stepCountIs(10), hasToolCall('done')],
+  stopWhen: isStepCount(10),
 });
+
+const result = await orchestrator.generate({ prompt: '...' });
+const done = result.staticToolCalls.find((tc) => tc.toolName === 'done');
+if (done?.toolName === 'done') console.log(done.input.summary); // typed, no cast
 ```
 
 ### 6b. Evaluator-Optimizer via Tools
@@ -537,7 +554,7 @@ pnpm chain
 
 | Package         | Purpose                                                         |
 | --------------- | --------------------------------------------------------------- |
-| `ai`            | `ToolLoopAgent`, `Output`, `tool`, `stepCountIs`, `hasToolCall` |
-| `ai-sdk-ollama` | `generateText`, `streamText`, `ollama` provider                 |
+| `ai`            | `ToolLoopAgent`, `Output`, `tool`, `isStepCount` |
+| `ai-sdk-ollama` | `ollama` provider for local models                              |
 | `zod`           | Schema definitions for structured output and tool input         |
 | `tsx`           | TypeScript execution                                            |

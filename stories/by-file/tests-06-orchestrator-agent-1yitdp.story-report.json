@@ -1,0 +1,198 @@
+{
+  "testCases": [
+    {
+      "id": "7a9ca4315736",
+      "story": {
+        "scenario": "orchestrates multiple agents via tool calls",
+        "steps": [
+          {
+            "id": "step-0",
+            "keyword": "Given",
+            "text": "a main orchestrator and specialized subagents",
+            "docs": [],
+            "assertions": 0
+          },
+          {
+            "id": "step-1",
+            "keyword": "When",
+            "text": "the orchestrator delegates via tools",
+            "docs": [],
+            "assertions": 0
+          },
+          {
+            "id": "step-2",
+            "keyword": "Then",
+            "text": "multiple agents collaborate on the task",
+            "docs": [
+              {
+                "kind": "table",
+                "label": "Agent Activity Detected",
+                "columns": [
+                  "Agent/Component",
+                  "Active"
+                ],
+                "rows": [
+                  [
+                    "Writer Subagent",
+                    "❌"
+                  ],
+                  [
+                    "Reviewer Subagent",
+                    "❌"
+                  ],
+                  [
+                    "Tool Call Activity",
+                    "❌"
+                  ]
+                ],
+                "phase": "runtime"
+              }
+            ],
+            "assertions": 0
+          }
+        ],
+        "suitePath": [
+          "06 - Orchestrator Agent"
+        ],
+        "tags": [
+          "agent",
+          "toolloop",
+          "orchestrator",
+          "real-output"
+        ],
+        "sourceOrder": 0
+      },
+      "sourceFile": "tests/06-orchestrator-agent.story.test.ts",
+      "sourceLine": 1,
+      "status": "passed",
+      "rawStatus": "pass",
+      "durationMs": 0,
+      "attachments": [],
+      "stepResults": [
+        {
+          "index": 0,
+          "stepId": "step-0",
+          "status": "passed",
+          "durationMs": 0
+        },
+        {
+          "index": 1,
+          "stepId": "step-1",
+          "status": "passed",
+          "durationMs": 0
+        },
+        {
+          "index": 2,
+          "stepId": "step-2",
+          "status": "passed",
+          "durationMs": 0
+        }
+      ],
+      "titlePath": [
+        "06 - Orchestrator Agent"
+      ],
+      "retry": 0,
+      "retries": 0,
+      "tags": [
+        "agent",
+        "orchestrator",
+        "real-output",
+        "toolloop"
+      ],
+      "lastRunAtMs": 1789590848724,
+      "lastRunGitSha": "ecc4ea687070f3ea3eea9cdf31b38815dcfce24a"
+    },
+    {
+      "id": "a59cc03ed6a9",
+      "story": {
+        "scenario": "produces a final result through agent collaboration",
+        "steps": [
+          {
+            "id": "step-0",
+            "keyword": "Given",
+            "text": "the multi-agent workflow",
+            "docs": [],
+            "assertions": 0
+          },
+          {
+            "id": "step-1",
+            "keyword": "When",
+            "text": "agents complete their collaboration",
+            "docs": [],
+            "assertions": 1
+          },
+          {
+            "id": "step-2",
+            "keyword": "Then",
+            "text": "the orchestrator produces a collaborative result",
+            "docs": [
+              {
+                "kind": "code",
+                "label": "Agent Collaboration Output",
+                "content": "Has final result indicator: ✅\nOutput length: 376 characters\n\n════════════════════════════════════════════════════════════\n  ToolLoopAgent: Orchestrator with Subagents\n════════════════════════════════════════════════════════════\n\n🎯 Starting orchestration...\n\n\nOrchestrator Final Text\n-----------------------\n\n{\"name\": \"write\", \"arguments\": {\"spec\": \"Write a short, catchy tagline for an eco-friendly water bottle brand.\"}}\n</tool_call>\n\n",
+                "lang": "text",
+                "phase": "runtime"
+              }
+            ],
+            "assertions": 0
+          }
+        ],
+        "suitePath": [
+          "06 - Orchestrator Agent"
+        ],
+        "tags": [
+          "real-output"
+        ],
+        "sourceOrder": 1
+      },
+      "sourceFile": "tests/06-orchestrator-agent.story.test.ts",
+      "sourceLine": 1,
+      "status": "passed",
+      "rawStatus": "pass",
+      "durationMs": 0,
+      "attachments": [],
+      "stepResults": [
+        {
+          "index": 0,
+          "stepId": "step-0",
+          "status": "passed",
+          "durationMs": 0
+        },
+        {
+          "index": 1,
+          "stepId": "step-1",
+          "status": "passed",
+          "durationMs": 0
+        },
+        {
+          "index": 2,
+          "stepId": "step-2",
+          "status": "passed",
+          "durationMs": 0
+        }
+      ],
+      "titlePath": [
+        "06 - Orchestrator Agent"
+      ],
+      "retry": 0,
+      "retries": 0,
+      "tags": [
+        "real-output"
+      ],
+      "lastRunAtMs": 1789590848724,
+      "lastRunGitSha": "ecc4ea687070f3ea3eea9cdf31b38815dcfce24a"
+    }
+  ],
+  "startedAtMs": 1789590845216,
+  "finishedAtMs": 1789590848724,
+  "durationMs": 3508,
+  "projectRoot": "/Users/jreehal/dev/ai/building-effective-agents-with-ai-sdk",
+  "runId": "62387f7bdcfdc9c2",
+  "packageVersion": "1.0.0",
+  "gitSha": "ecc4ea687070f3ea3eea9cdf31b38815dcfce24a",
+  "runScope": "full",
+  "coveredSourceFiles": [
+    "tests/06-orchestrator-agent.story.test.ts",
+    "tests/16-tool-approval.story.test.ts"
+  ]
+}

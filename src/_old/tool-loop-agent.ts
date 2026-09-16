@@ -33,6 +33,7 @@ async function orchestratorWithSubagents() {
 
   // Worker subagent: generates content from a specification
   const writerAgent = new ToolLoopAgent({
+    experimental_telemetry: { isEnabled: true },
     model,
     instructions: `You are a creative writer. Generate polished content
     based on the specification provided. Be concise and specific.`,
@@ -40,6 +41,7 @@ async function orchestratorWithSubagents() {
 
   // Worker subagent: evaluates and scores content
   const reviewerAgent = new ToolLoopAgent({
+    experimental_telemetry: { isEnabled: true },
     model,
     instructions: `You are a content reviewer. Evaluate the provided content
     for clarity, engagement, and quality. Give a score from 1-10 and brief feedback.`,
@@ -48,6 +50,7 @@ async function orchestratorWithSubagents() {
   // Main orchestrator agent with tools that delegate to subagents
   const orchestrator = new ToolLoopAgent({
     model,
+    experimental_telemetry: { isEnabled: true },
     instructions: `You are a project orchestrator. Break tasks into subtasks
     and delegate to the appropriate tools. Use the writer tool to generate
     content variants, then use the reviewer tool to evaluate each one.
@@ -88,7 +91,8 @@ async function orchestratorWithSubagents() {
   });
 
   const result = await orchestrator.generate({
-    prompt: 'Write a short, catchy tagline for an eco-friendly water bottle brand.',
+    prompt:
+      'Write a short, catchy tagline for an eco-friendly water bottle brand.',
   });
 
   show(result.text, 'Orchestrator Final Text');
@@ -114,6 +118,7 @@ async function evaluatorOptimizerAgent() {
 
   // Separate evaluator subagent to avoid circular reference
   const evaluatorAgent = new ToolLoopAgent({
+    experimental_telemetry: { isEnabled: true },
     model,
     instructions: `You are a code reviewer. Evaluate the code and respond
     with either "PASS" if it meets all criteria, or "NEEDS_IMPROVEMENT"
@@ -122,6 +127,7 @@ async function evaluatorOptimizerAgent() {
 
   const agent = new ToolLoopAgent({
     model,
+    experimental_telemetry: { isEnabled: true },
     instructions: `You are a TypeScript developer. Write code solutions,
     then use the evaluate tool to check your work. Iterate until the
     evaluation passes. Call the done tool when your code is ready.`,
@@ -173,6 +179,7 @@ async function structuredAgent() {
   console.log('=== Structured Output Agent ===\n');
 
   const analysisAgent = new ToolLoopAgent({
+    experimental_telemetry: { isEnabled: true },
     model,
     instructions: 'You are a data analyst. Provide structured analysis.',
     output: Output.object({
